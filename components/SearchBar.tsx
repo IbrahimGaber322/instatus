@@ -12,7 +12,7 @@ const SearchBar = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="m-5 relative">
+    <form onSubmit={handleSubmit} className="m-5">
       <input
         type="search"
         value={search}
