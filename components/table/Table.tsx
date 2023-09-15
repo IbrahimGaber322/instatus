@@ -6,7 +6,7 @@ const Table = () => {
 
   return (
     <div className="overflow-x-auto h-full bg-white lg:overflow-x-visible">
-      <table className="w-full table-fixed">
+      <table className="w-full  lg:table-fixed">
         <thead>
           <tr className="bg-gray-200">
             {headings.map((heading) => (
@@ -25,11 +25,9 @@ const Table = () => {
               id={data.id}
               object={data.object}
               actor_id={data.actor_id}
-              action_name={data.action_name}
-              actor_name={data.action_name}
+              action={data.action}
+              actor_name={data.actor_name}
               group={data.group}
-              action_id={data.action_id}
-              action_object={data.action_object}
               target_id={data.target_id}
               target_name={data.target_name}
               location={data.location}

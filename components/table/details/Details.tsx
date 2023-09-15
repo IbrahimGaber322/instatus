@@ -1,16 +1,15 @@
 "use client";
-import { Fragment, useEffect, useRef, useState } from "react";
-import { EventType, mockEventData } from "@/constants/mockdata";
+import { Fragment, useState } from "react";
+import { EventType } from "@/constants/mockdata";
 import TableDataDetails from "./table_data/TableDataDetails";
+import moment from "moment";
 const Details = ({
   id,
   object,
   actor_id,
   actor_name,
   group,
-  action_id,
-  action_object,
-  action_name,
+  action,
   target_id,
   target_name,
   location,
@@ -34,29 +33,22 @@ const Details = ({
       return `linear-gradient(45deg, hsl(${hue1}, 70%, 50%), hsl(${hue2}, 70%, 50%))`;
     }
   };
-  const [trWidth, setTrWidth] = useState<number | null>(null); // State to hold the width of the <tr> element
-  const trRef: any = useRef(null);
 
-  useEffect(() => {
-    // Calculate and set the width of the <tr> element when details change
-    if (trRef.current && details) {
-      setTrWidth(trRef.current.offsetWidth);
-    }
-  }, [details]);
-  console.log(`trWidth:${trWidth}`);
+  const date = moment(occurred_at).utc().format("MMM DD, h:m A");
+
   return (
-    <Fragment key={action_id}>
+    <Fragment key={action.id}>
       {details ? (
-        <tr ref={trRef} onClick={() => setDetails(!details)}>
+        <tr onClick={() => setDetails(!details)}>
           <td colSpan={3}>
-            <div className="lg:w-[103%] lg:left-[-1.5%] relative bg-white rounded-xl border-2 shadow-slate-400 shadow  ">
+            <div className="w-full lg:w-[103%] lg:left-[-1.5%] relative bg-white rounded-xl border-2 shadow-slate-400 shadow">
               <div className="w-full lg:w-[97.5901%]">
-                <table className="w-full table-fixed lg:ml-3.5">
+                <table className="w-full  lg:table-fixed lg:ml-3.5">
                   <thead>
                     <tr>
                       {headings_1.map((heading) => (
                         <th
-                          className="px-6 py-3 font-medium text-gray-600 text-lg lg:text-xl text-left"
+                          className="px-6 py-3 font-medium text-gray-400 text-lg lg:text-xl text-left"
                           key={heading}
                         >
                           {heading}
@@ -66,17 +58,67 @@ const Details = ({
                   </thead>
                   <tbody>
                     <tr>
-                      <TableDataDetails>{action_name}</TableDataDetails>
-                      <TableDataDetails>{action_name}</TableDataDetails>
-                      <TableDataDetails>{action_name}</TableDataDetails>
+                      <TableDataDetails title="Name">
+                        {actor_name}
+                      </TableDataDetails>
+
+                      <TableDataDetails title="Email">
+                        {action.name}
+                      </TableDataDetails>
+                      <TableDataDetails title="Readable">
+                        {date}
+                      </TableDataDetails>
                     </tr>
                     <tr>
-                      <TableDataDetails>{action_name}</TableDataDetails>
-                      <TableDataDetails>{action_name}</TableDataDetails>
+                      <TableDataDetails title="Email">
+                        {target_name}
+                      </TableDataDetails>
+                      <TableDataDetails title="Object">
+                        {action.object}
+                      </TableDataDetails>
                     </tr>
                     <tr>
-                      <TableDataDetails>{action_name}</TableDataDetails>
-                      <TableDataDetails>{action_name}</TableDataDetails>
+                      <TableDataDetails title="ID">{actor_id}</TableDataDetails>
+                      <TableDataDetails title="ID">
+                        {action.id}
+                      </TableDataDetails>
+                    </tr>
+                  </tbody>
+                </table>
+                <table className="w-2/3 table-fixed lg:ml-3.5">
+                  <thead>
+                    <tr>
+                      {headings_2.map((heading) => (
+                        <th
+                          className="px-6 py-3 font-medium text-gray-400 text-lg lg:text-xl text-left"
+                          key={heading}
+                        >
+                          {heading}
+                        </th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <TableDataDetails title="Redirect">
+                        {metadata.redirect}
+                      </TableDataDetails>
+                      <TableDataDetails title="Name">
+                        {target_name}
+                      </TableDataDetails>
+                    </tr>
+                    <tr>
+                      <TableDataDetails title="Description">
+                        {metadata.description}
+                      </TableDataDetails>
+                      <TableDataDetails title="ID">
+                        {target_id}
+                      </TableDataDetails>
+                    </tr>
+                    <tr>
+                      <TableDataDetails title="ID">
+                        {metadata.x_request_id}
+                      </TableDataDetails>
                     </tr>
                   </tbody>
                 </table>
@@ -85,21 +127,28 @@ const Details = ({
           </td>
         </tr>
       ) : (
-        <tr onClick={() => setDetails(!details)}>
-          <td className="px-6 py-4 text-sm lg:text-base">
+        <tr
+          className="cursor-pointer hover:bg-gray-200"
+          onClick={() => setDetails(!details)}
+        >
+          <td className="whitespace-nowrap px-6 py-4 text-sm lg:text-base">
             <div
               style={{ background: getRandomGradient() }}
               className="inline-flex items-center justify-center w-10 h-10 overflow-hidden rounded-full mr-2"
             >
               <span className="text-white font-semibold">
-                {action_name.charAt(0).toUpperCase()}
+                {target_name.charAt(0).toUpperCase()}
               </span>
             </div>
 
-            {action_name}
+            {action.name}
           </td>
-          <td className="text-sm lg:text-base px-6 py-4">{action_name}</td>
-          <td className="text-sm lg:text-base px-6 py-4 break-words">{occurred_at}</td>
+          <td className="whitespace-nowrap text-sm lg:text-base px-6 py-4">
+            {action.name}
+          </td>
+          <td className="whitespace-nowrap text-sm lg:text-base px-6 py-4 break-words">
+            {date}
+          </td>
         </tr>
       )}
     </Fragment>
