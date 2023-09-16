@@ -1,12 +1,11 @@
 import { EventType } from "@/constants/mockdata";
 import { createEvent, getAllEvents } from "@/prisma/event";
-import { NextApiRequest, NextApiResponse } from "next";
-import { NextResponse, NextRequest } from "next/server";
+import { NextResponse } from "next/server";
 
-export async function GET(req: NextApiRequest) {
+export async function GET(req: Request) {
   try {
     const events = await getAllEvents();
-    
+
     const data = JSON.stringify(events);
     return NextResponse.json(data);
   } catch (error) {
@@ -16,7 +15,7 @@ export async function GET(req: NextApiRequest) {
 
 export async function POST(req: Request) {
   const data = await req.json();
-  
+
   try {
     const {
       id,
