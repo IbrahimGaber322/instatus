@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Details from "./details/Details";
 import { mockEventData } from "@/constants/mockdata";
-const Table = () => {
+const Table = (events: any) => {
   const headings: string[] = ["ACTOR", "ACTING", "DATE"];
 
   return (
@@ -22,6 +22,7 @@ const Table = () => {
         <tbody>
           {mockEventData.map((data, i) => (
             <Details
+              key={data.id}
               id={data.id}
               object={data.object}
               actor_id={data.actor_id}

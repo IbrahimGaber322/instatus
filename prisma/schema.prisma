@@ -5,24 +5,40 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url = env("POSTGRES_PRISMA_URL") // uses connection pooling
+  provider  = "postgresql"
+  url       = env("POSTGRES_PRISMA_URL") // uses connection pooling
   directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
 }
 
 model Event {
-  id          String      @id
+  uid         Int        @id @default(autoincrement())
+  id          String
   object      String
   actor_id    String
   actor_name  String
   group       String
-  action_id   String
-  action_object String
-  action_name String
   target_id   String
   target_name String
   location    String
-  occurred_at DateTime
-  metadata    Json
+  occurred_at DateTime   @default(now())
+  metadata    Metadata[]
+  action      Action[]
 }
 
+model Action {
+  uid       Int    @id @default(autoincrement())
+  id        String
+  object    String
+  name      String
+  event     Event? @relation(fields: [event_uid], references: [uid])
+  event_uid Int?
+}
+
+model Metadata {
+  uid          Int    @id @default(autoincrement())
+  redirect     String
+  description  String
+  x_request_id String
+  event        Event? @relation(fields: [event_uid], references: [uid])
+  event_uid    Int?
+}

@@ -9,12 +9,11 @@ interface Event {
     object: string;
     name: string;
   };
-
   target_id: string;
   target_name: string;
   location: string;
   occurred_at: string; // You can use a Date object if you prefer
-  metadata: Record<string, any>;
+  metadata: { redirect: string; description: string; x_request_id: string };
 }
 
 const mockEventData: Event[] = [
