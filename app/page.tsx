@@ -8,19 +8,26 @@ import { FetchedEventType } from "@/constants/types";
 import { useEffect, useState } from "react";
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
-const websiteUrl = process.env.WEBSITE_URL;
+
 export default function Home() {
   const [search, setSearch] = useState<string>("");
   const [loadMore, setLoadMore] = useState<boolean>(false);
   const [page, setPage] = useState<number>(1);
-  const [filterMenuItems, setFilterMenuItems] = useState<{name:string, checked:boolean}[]>([{name:"ACTOR",checked:true}, {name:"ACTION",checked:true}, {name:"DATE",checked:true}, {name:"METADATA",checked:true}, {name:"TARGET",checked:true}]);
- 
+  const [filterMenuItems, setFilterMenuItems] = useState<
+    { name: string; checked: boolean }[]
+  >([
+    { name: "ACTOR", checked: true },
+    { name: "ACTION", checked: true },
+    { name: "DATE", checked: true },
+    { name: "METADATA", checked: true },
+    { name: "TARGET", checked: true },
+  ]);
+
   const { data, error, isLoading } = useSWR<string>(
-    `http://localhost:3000/api/events`,
+    `${process.env.NEXT_PUBLIC_WEBSITE_URL}/api/events`,
     fetcher
   );
-  
-  console.log(`${process.env.WEBSITE_URL}/api/events`);
+
   useEffect(() => {
     if (data && pages && page > pages) {
       setPage(1);
@@ -45,7 +52,12 @@ export default function Home() {
   return (
     <main className="flex justify-center items-center min-h-screen p-4">
       <div className="w-full lg:w-full md:w-5/6 max-w-6xl max-h-5/6 rounded-xl bg-gray-200  p-1 flex flex-col justify-between">
-        <SearchBar filterMenuItems={filterMenuItems} setFilterMenuItems={setFilterMenuItems} search={search} setSearch={setSearch} />
+        <SearchBar
+          filterMenuItems={filterMenuItems}
+          setFilterMenuItems={setFilterMenuItems}
+          search={search}
+          setSearch={setSearch}
+        />
         <Table filterMenuItems={filterMenuItems} events={events} />
         {pages > 1 && (
           <Pagination
