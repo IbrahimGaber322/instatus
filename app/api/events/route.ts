@@ -2,18 +2,19 @@ import { EventType } from "@/constants/mockdata";
 import { createEvent, getAllEvents } from "@/prisma/event";
 import { NextResponse } from "next/server";
 
-export async function GET(req: Request) {
+export async function GET(req: Request, res: Response) {
   try {
     const events = await getAllEvents();
 
     const data = JSON.stringify(events);
+
     return NextResponse.json(data);
   } catch (error) {
     console.log(error);
   }
 }
 
-export async function POST(req: Request) {
+export async function POST(req: Request, res: Response) {
   const data = await req.json();
 
   try {

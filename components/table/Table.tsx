@@ -1,9 +1,9 @@
 import Image from "next/image";
 import Details from "./details/Details";
-import { mockEventData } from "@/constants/mockdata";
-const Table = (events: any) => {
+import { FetchedEventType } from "@/constants/mockdata";
+const Table = ({events}: {events:FetchedEventType[]}) => {
   const headings: string[] = ["ACTOR", "ACTING", "DATE"];
-
+ 
   return (
     <div className="overflow-x-auto h-full bg-white lg:overflow-x-visible">
       <table className="w-full  lg:table-fixed">
@@ -20,20 +20,20 @@ const Table = (events: any) => {
           </tr>
         </thead>
         <tbody>
-          {mockEventData.map((data, i) => (
+          {events.map((data, i) => (
             <Details
               key={data.id}
               id={data.id}
               object={data.object}
               actor_id={data.actor_id}
-              action={data.action}
+              action={data.action[0]}
               actor_name={data.actor_name}
               group={data.group}
               target_id={data.target_id}
               target_name={data.target_name}
               location={data.location}
               occurred_at={data.occurred_at}
-              metadata={data.metadata}
+              metadata={data.metadata[0]}
             />
           ))}
         </tbody>

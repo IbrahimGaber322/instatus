@@ -21,8 +21,8 @@ model Event {
   target_name String
   location    String
   occurred_at DateTime   @default(now())
-  metadata    Metadata[]
-  action      Action[]
+  metadata    Metadata?
+  action      Action?
 }
 
 model Action {
@@ -31,7 +31,7 @@ model Action {
   object    String
   name      String
   event     Event? @relation(fields: [event_uid], references: [uid])
-  event_uid Int?
+  event_uid Int? @unique
 }
 
 model Metadata {
@@ -40,5 +40,5 @@ model Metadata {
   description  String
   x_request_id String
   event        Event? @relation(fields: [event_uid], references: [uid])
-  event_uid    Int?
+  event_uid    Int? @unique
 }

@@ -50,7 +50,9 @@ export const createEvent = async (eventData: EventType) => {
 };
 
 export const getAllEvents = async () => {
-  const events = await prisma.event.findMany();
+  const events = await prisma.event.findMany({
+    include: { action: true, metadata: true },
+  });
 
   return events;
 };
