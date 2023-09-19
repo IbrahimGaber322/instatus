@@ -38,16 +38,16 @@ export default function Home() {
   if (!data) return null;
   const eventsPerPage: number = loadMore ? 8 : 5;
   const fetchedEvents: FetchedEventType[] = JSON.parse(data);
-  const searchedEvents: FetchedEventType[] = fetchedEvents.filter((event) =>
-    event.target_name.includes(search)
+  const searchedEvents: FetchedEventType[] = fetchedEvents?.filter((event) =>
+    event?.target_name?.includes(search)
   );
-  const eventsNumber: number = searchedEvents.length;
+  const eventsNumber: number = searchedEvents?.length;
 
-  const events = searchedEvents.slice(
+  const events = searchedEvents?.slice(
     (page - 1) * eventsPerPage,
     page * eventsPerPage
   );
-  const pages = Math.ceil(searchedEvents.length / eventsPerPage);
+  const pages = Math.ceil(searchedEvents?.length / eventsPerPage);
 
   return (
     <main className="flex justify-center items-center min-h-screen p-4">
@@ -68,7 +68,7 @@ export default function Home() {
             eventsPerPage={eventsPerPage}
           />
         )}
-        {fetchedEvents.length > 5 && (
+        {fetchedEvents?.length > 5 && (
           <button
             onClick={() => setLoadMore(!loadMore)}
             className="rounded-b-lg w-full mt-auto font-medium text-gray-600 text-xl py-4 hover:bg-gray-300"
