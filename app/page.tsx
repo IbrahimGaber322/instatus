@@ -8,15 +8,19 @@ import { FetchedEventType } from "@/constants/types";
 import { useEffect, useState } from "react";
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
+const websiteUrl = process.env.WEBSITE_URL;
 export default function Home() {
   const [search, setSearch] = useState<string>("");
   const [loadMore, setLoadMore] = useState<boolean>(false);
   const [page, setPage] = useState<number>(1);
   const [filterMenuItems, setFilterMenuItems] = useState<{name:string, checked:boolean}[]>([{name:"ACTOR",checked:true}, {name:"ACTION",checked:true}, {name:"DATE",checked:true}, {name:"METADATA",checked:true}, {name:"TARGET",checked:true}]);
+ 
   const { data, error, isLoading } = useSWR<string>(
-    "http://localhost:3000/api/events",
+    `http://localhost:3000/api/events`,
     fetcher
   );
+  
+  console.log(`${process.env.WEBSITE_URL}/api/events`);
   useEffect(() => {
     if (data && pages && page > pages) {
       setPage(1);
