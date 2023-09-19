@@ -29,14 +29,14 @@ const Table = ({ events, filterMenuItems }: { events: FetchedEventType[]; filter
                   id={data.id}
                   object={data.object}
                   actor_id={data.actor_id}
-                  action={data.action[0]||data.action}
+                  action={data.action[0]}
                   actor_name={data.actor_name}
                   group={data.group}
                   target_id={data.target_id}
                   target_name={data.target_name}
                   location={data.location}
                   occurred_at={data.occurred_at}
-                  metadata={data.metadata[0]||data.metadata}
+                  metadata={data.metadata[0]}
                   filterMenuItems={filterMenuItems}
                 />
               ))}

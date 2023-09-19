@@ -21,8 +21,8 @@ model Event {
   target_name String
   location    String
   occurred_at DateTime   @default(now())
-  metadata    Metadata?
-  action      Action?
+  metadata    Metadata[]
+  action      Action[]
 }
 
 model Action {
