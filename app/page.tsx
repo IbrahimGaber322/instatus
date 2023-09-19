@@ -24,7 +24,7 @@ export default function Home() {
     { name: "METADATA", checked: true },
     { name: "TARGET", checked: true },
   ]);
-
+  const [filterBy, setfilterBy] = useState<string>("name");
   const { data, error, isLoading } = useSWR<string>(
     `${process.env.NEXT_PUBLIC_WEBSITE_URL}/api/events`,
     fetcher
@@ -45,7 +45,27 @@ export default function Home() {
   if (!data) return null;
   const eventsPerPage: number = loadMore ? 8 : 5;
   const fetchedEvents: FetchedEventType[] = JSON.parse(data);
-  const searchedEvents: FetchedEventType[] = fetchedEvents?.filter((event) =>
+  let filteredEvents: FetchedEventType[];
+  if (filterBy === "name") {
+    filteredEvents = fetchedEvents?.sort((a, b) =>
+      a.actor_name.localeCompare(b.actor_name, "en")
+    );
+  } else if (filterBy === "actor ID") {
+    filteredEvents = fetchedEvents?.sort((a, b) =>
+      a.actor_id.localeCompare(b.actor_id, "en")
+    );
+  } else if (filterBy === "target ID") {
+    filteredEvents = fetchedEvents?.sort((a, b) =>
+      a.target_id.localeCompare(b.target_id, "en")
+    );
+  } else if (filterBy === "action ID") {
+    filteredEvents = fetchedEvents?.sort((a, b) =>
+      a.action[0].id.localeCompare(b.action[0].id, "en")
+    );
+  } else {
+    filteredEvents = fetchedEvents;
+  }
+  const searchedEvents: FetchedEventType[] = filteredEvents?.filter((event) =>
     event?.target_name?.includes(search)
   );
   const eventsNumber: number = searchedEvents?.length;
@@ -94,6 +114,8 @@ export default function Home() {
           search={search}
           setSearch={setSearch}
           exportToCSV={exportToCSV}
+          filterBy={filterBy}
+          setFilterBy={setfilterBy}
         />
         <Table filterMenuItems={filterMenuItems} events={events} />
         {pages > 1 && (
