@@ -2,6 +2,7 @@
 import { Fragment, useState } from "react";
 import { EventType } from "@/constants/mockdata";
 import TableDataDetails from "./table_data/TableDataDetails";
+import CloseCircleIcon from "@/assets/icons/CloseCircleIcon";
 import moment from "moment";
 const Details = ({
   id,
@@ -39,9 +40,10 @@ const Details = ({
   return (
     <Fragment key={action.id}>
       {details ? (
-        <tr onClick={() => setDetails(!details)}>
+        <tr >
           <td colSpan={3}>
             <div className="w-full lg:w-[103%] lg:left-[-1.5%] relative bg-white rounded-xl border-2 shadow-slate-400 shadow">
+            <button onClick={() => setDetails(!details)} className="absolute top-0 right-0 m-2 bg-white rounded-full hover:bg-gray-200"><CloseCircleIcon /></button>
               <div className="w-full lg:w-[97.5901%]">
                 <table className="w-full  lg:table-fixed lg:ml-3.5">
                   <thead>
@@ -125,6 +127,7 @@ const Details = ({
               </div>
             </div>
           </td>
+         
         </tr>
       ) : (
         <tr
@@ -141,7 +144,7 @@ const Details = ({
               </span>
             </div>
 
-            {action.name}
+            {target_name}
           </td>
           <td className="whitespace-nowrap text-sm lg:text-base px-6 py-4">
             {action.name}
