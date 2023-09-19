@@ -7,7 +7,7 @@ const Table = ({ events, filterMenuItems }: { events: FetchedEventType[]; filter
   return (
     <>
       {events.length > 0 ? (
-        <div className="overflow-x-auto h-full bg-white lg:overflow-x-visible">
+        <div className="overflow-x-auto h-full bg-white lg:overflow-x-visible flex-grow">
           <table className="w-full  lg:table-fixed">
             <thead>
               <tr className="bg-gray-200">

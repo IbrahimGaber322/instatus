@@ -51,7 +51,7 @@ export default function Home() {
 
   return (
     <main className="flex justify-center items-center min-h-screen p-4">
-      <div className="w-full lg:w-full md:w-5/6 max-w-6xl max-h-5/6 rounded-xl bg-gray-200  p-1 flex flex-col justify-between">
+      <div className="w-full lg:w-full md:w-5/6 max-w-6xl min-h-[500px] rounded-xl bg-gray-200  p-1 flex flex-col ">
         <SearchBar
           filterMenuItems={filterMenuItems}
           setFilterMenuItems={setFilterMenuItems}
@@ -68,12 +68,12 @@ export default function Home() {
             eventsPerPage={eventsPerPage}
           />
         )}
-        {fetchedEvents?.length > 5 && (
+        {searchedEvents?.length > 5 && (
           <button
             onClick={() => setLoadMore(!loadMore)}
             className="rounded-b-lg w-full mt-auto font-medium text-gray-600 text-xl py-4 hover:bg-gray-300"
           >
-            LOAD MORE
+            {loadMore?"LOAD LESS":"LOAD MORE"}
           </button>
         )}
       </div>

@@ -45,6 +45,7 @@ const SearchBar = ({
         </div>
         <div className="relative ">
           <button
+          type="button"
             onClick={() => setFilterMenu(!filterMenu)}
             className="p-2.5 text-sm font-medium h-10 w-fit bg-white hover:bg-slate-200 flex justify-center items-center text-gray-400"
           >
@@ -59,13 +60,13 @@ const SearchBar = ({
             {filterMenuItems.map((item, i) => (
               <li
                 key={i}
-                className="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap"
+                className="rounded-t bg-gray-200 py-2 px-4 block whitespace-no-wrap"
               >
                 <input
                   type="checkbox"
                   checked={item?.checked}
                   onChange={() => handleCheckboxChange(item?.name)}
-                  className="w-4 h-4 text-orange-600 ring-0 focus:ring-0 bg-gray-100 border-gray-300 rounded focus:ring-orange-500"
+                  className="cursor-pointer w-4 h-4 text-orange-600 ring-0 focus:ring-0 bg-gray-100 border-gray-300 rounded shadow-md shadow-orange-600 focus:shadow-orange-600 focus:shadow-md focus:border-0 focus:outline-none"
                 />{" "}
                 <label className="ml-2 text-sm font-medium text-gray-900 ">
                   {item?.name}
@@ -75,7 +76,7 @@ const SearchBar = ({
           </ul>
         </div>
 
-        <button className="p-2.5 text-sm font-medium h-10 w-fit bg-white hover:bg-slate-200  flex justify-center items-center text-gray-400 rounded-r-lg">
+        <button type="button" className="p-2.5 text-sm font-medium h-10 w-fit bg-white hover:bg-slate-200  flex justify-center items-center text-gray-400 rounded-r-lg">
           <ExportIcon />
           EXPORT
         </button>
