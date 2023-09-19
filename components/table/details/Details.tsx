@@ -1,9 +1,10 @@
 "use client";
 import { Fragment, useState } from "react";
-import { EventType } from "@/constants/mockdata";
+import { DetailsProps } from "@/constants/types";
 import TableDataDetails from "./table_data/TableDataDetails";
 import CloseCircleIcon from "@/assets/icons/CloseCircleIcon";
 import moment from "moment";
+
 const Details = ({
   id,
   object,
@@ -16,7 +17,8 @@ const Details = ({
   location,
   occurred_at,
   metadata,
-}: EventType) => {
+  filterMenuItems,
+}: DetailsProps) => {
   const headings_1: string[] = ["ACTOR", "ACTING", "DATE"];
   const headings_2: string[] = ["METADATA", "Target"];
   const [details, setDetails] = useState<boolean>(false);
@@ -40,94 +42,165 @@ const Details = ({
   return (
     <Fragment key={action.id}>
       {details ? (
-        <tr >
+        <tr>
           <td colSpan={3}>
             <div className="w-full lg:w-[103%] lg:left-[-1.5%] relative bg-white rounded-xl border-2 shadow-slate-400 shadow">
-            <button onClick={() => setDetails(!details)} className="absolute top-0 right-0 m-2 bg-white rounded-full hover:bg-gray-200"><CloseCircleIcon /></button>
+              <button
+                onClick={() => setDetails(!details)}
+                className="absolute top-0 right-0 m-2 bg-white rounded-full hover:bg-gray-200"
+              >
+                <CloseCircleIcon />
+              </button>
               <div className="w-full lg:w-[97.5901%]">
                 <table className="w-full  lg:table-fixed lg:ml-3.5">
                   <thead>
                     <tr>
-                      {headings_1.map((heading) => (
-                        <th
-                          className="px-6 py-3 font-medium text-gray-400 text-lg lg:text-xl text-left"
-                          key={heading}
-                        >
-                          {heading}
-                        </th>
-                      ))}
+                      {filterMenuItems.slice(0, 3).map(
+                        (item, i) =>
+                          item.checked && (
+                            <th
+                              className="px-6 py-3 font-medium text-gray-400 text-lg lg:text-xl text-left"
+                              key={i}
+                            >
+                              {item.name}
+                            </th>
+                          )
+                      )}
                     </tr>
                   </thead>
                   <tbody>
                     <tr>
-                      <TableDataDetails title="Name">
-                        {actor_name}
-                      </TableDataDetails>
-
-                      <TableDataDetails title="Email">
-                        {action.name}
-                      </TableDataDetails>
-                      <TableDataDetails title="Readable">
-                        {date}
-                      </TableDataDetails>
+                      {filterMenuItems.map((item, i) => {
+                        if (item.name === "ACTOR" && item.checked) {
+                          return (
+                            <TableDataDetails title="Name" key={i}>
+                              {actor_name}
+                            </TableDataDetails>
+                          );
+                        } else if (item.name === "ACTION" && item.checked) {
+                          return (
+                            <TableDataDetails title="Email">
+                              {action.name}
+                            </TableDataDetails>
+                          );
+                        } else if (item.name === "DATE" && item.checked) {
+                          return (
+                            <TableDataDetails title="Readable">
+                              {date}
+                            </TableDataDetails>
+                          );
+                        }
+                        return null;
+                      })}
                     </tr>
                     <tr>
-                      <TableDataDetails title="Email">
-                        {target_name}
-                      </TableDataDetails>
-                      <TableDataDetails title="Object">
-                        {action.object}
-                      </TableDataDetails>
+                      {filterMenuItems.map((item, i) => {
+                        if (item.name === "ACTOR" && item.checked) {
+                          return (
+                            <TableDataDetails title="Email">
+                              {target_name}
+                            </TableDataDetails>
+                          );
+                        } else if (item.name === "ACTION" && item.checked) {
+                          return (
+                            <TableDataDetails title="Object">
+                              {action.object}
+                            </TableDataDetails>
+                          );
+                        }
+                        return null;
+                      })}
                     </tr>
                     <tr>
-                      <TableDataDetails title="ID">{actor_id}</TableDataDetails>
-                      <TableDataDetails title="ID">
-                        {action.id}
-                      </TableDataDetails>
+                      {filterMenuItems.map((item, i) => {
+                        if (item.name === "ACTOR" && item.checked) {
+                          return (
+                            <TableDataDetails title="ID">
+                              {actor_id}
+                            </TableDataDetails>
+                          );
+                        } else if (item.name === "ACTION" && item.checked) {
+                          return (
+                            <TableDataDetails title="ID">
+                              {action.id}
+                            </TableDataDetails>
+                          );
+                        }
+                        return null;
+                      })}
                     </tr>
                   </tbody>
                 </table>
                 <table className="w-2/3 table-fixed lg:ml-3.5">
                   <thead>
                     <tr>
-                      {headings_2.map((heading) => (
-                        <th
-                          className="px-6 py-3 font-medium text-gray-400 text-lg lg:text-xl text-left"
-                          key={heading}
-                        >
-                          {heading}
-                        </th>
-                      ))}
+                      {filterMenuItems.slice(3, 5).map(
+                        (item, i) =>
+                          item.checked && (
+                            <th
+                              className="px-6 py-3 font-medium text-gray-400 text-lg lg:text-xl text-left"
+                              key={i}
+                            >
+                              {item.name}
+                            </th>
+                          )
+                      )}
                     </tr>
                   </thead>
                   <tbody>
                     <tr>
-                      <TableDataDetails title="Redirect">
-                        {metadata.redirect}
-                      </TableDataDetails>
-                      <TableDataDetails title="Name">
-                        {target_name}
-                      </TableDataDetails>
+                      {filterMenuItems.map((item, i) => {
+                        if (item.name === "METADATA" && item.checked) {
+                          return (
+                            <TableDataDetails title="Redirect">
+                              {metadata.redirect}
+                            </TableDataDetails>
+                          );
+                        } else if (item.name === "TARGET" && item.checked) {
+                          return (
+                            <TableDataDetails title="Name">
+                              {target_name}
+                            </TableDataDetails>
+                          );
+                        }
+                        return null;
+                      })}
                     </tr>
                     <tr>
-                      <TableDataDetails title="Description">
-                        {metadata.description}
-                      </TableDataDetails>
-                      <TableDataDetails title="ID">
-                        {target_id}
-                      </TableDataDetails>
+                      {filterMenuItems.map((item, i) => {
+                        if (item.name === "METADATA" && item.checked) {
+                          return (
+                            <TableDataDetails title="Description">
+                              {metadata.description}
+                            </TableDataDetails>
+                          );
+                        } else if (item.name === "TARGET" && item.checked) {
+                          return (
+                            <TableDataDetails title="ID">
+                              {target_id}
+                            </TableDataDetails>
+                          );
+                        }
+                        return null;
+                      })}
                     </tr>
                     <tr>
-                      <TableDataDetails title="ID">
-                        {metadata.x_request_id}
-                      </TableDataDetails>
+                      {filterMenuItems.map((item, i) => {
+                        if (item.name === "METADATA" && item.checked) {
+                          return (
+                            <TableDataDetails title="ID">
+                              {metadata.x_request_id}
+                            </TableDataDetails>
+                          );
+                        }
+                        return null;
+                      })}
                     </tr>
                   </tbody>
                 </table>
               </div>
             </div>
           </td>
-         
         </tr>
       ) : (
         <tr

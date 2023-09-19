@@ -1,8 +1,8 @@
 import Image from "next/image";
 import Details from "./details/Details";
-import { FetchedEventType } from "@/constants/mockdata";
-const Table = ({ events }: { events: FetchedEventType[] }) => {
-  const headings: string[] = ["ACTOR", "ACTING", "DATE"];
+import { FetchedEventType } from "@/constants/types";
+const Table = ({ events, filterMenuItems }: { events: FetchedEventType[]; filterMenuItems:{name:string, checked:boolean}[] }) => {
+  const headings: string[] = ["ACTOR", "ACTION", "DATE"];
   console.log(events);
   return (
     <>
@@ -36,6 +36,7 @@ const Table = ({ events }: { events: FetchedEventType[] }) => {
                   location={data.location}
                   occurred_at={data.occurred_at}
                   metadata={data.metadata[0]}
+                  filterMenuItems={filterMenuItems}
                 />
               ))}
             </tbody>

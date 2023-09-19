@@ -2,12 +2,17 @@
 import { useState } from "react";
 import FilterIcon from "@/assets/icons/FilterIcon";
 import ExportIcon from "@/assets/icons/ExportIcon";
+
 const SearchBar = ({
   search,
   setSearch,
+  filterMenuItems,
+  setFilterMenuItems
 }: {
   search: string;
   setSearch: Function;
+  filterMenuItems:{name:string, checked:boolean}[];
+  setFilterMenuItems:Function;
 }) => {
   const [filterMenu, setFilterMenu] = useState<boolean>(false);
   const handleChange = (e: any) => {
@@ -17,7 +22,14 @@ const SearchBar = ({
     e.preventDefault();
     console.log(search);
   };
-  
+
+  const handleCheckboxChange = (itemName: string) => {
+    const updatedFilterMenuItems = filterMenuItems.map((item) =>
+      item.name === itemName ? { ...item, checked: !item.checked } : item
+    );
+    setFilterMenuItems(updatedFilterMenuItems);
+  };
+
   return (
     <form onSubmit={handleSubmit} className="m-5">
       <div className="h-10 flex w-full rounded-lg border-gray-300 divide-x-2 ">
@@ -42,36 +54,26 @@ const SearchBar = ({
           <ul
             className={`absolute ${
               filterMenu ? "block" : "hidden"
-            } text-gray-700 pt-1 w-[200px]`}
+            } text-gray-700 pt-1 w-[200px] z-10`}
           >
-            <li className="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap">
-              <input
-                type="checkbox"
-                className="w-4 h-4 text-orange-600 ring-0 focus:ring-0 bg-gray-100 border-gray-300 rounded focus:ring-orange-500"
-              />{" "}
-              <label
-                 
-                className="ml-2 text-sm font-medium text-gray-900 "
-              >
-                Default checkbox
-              </label>
-            </li>
-            <li>
-              <a
-                className="bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap"
-                href="#"
-              >
-                Two
-              </a>
-            </li>
-            <li>
-              <a
-                className="rounded-b bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap"
-                href="#"
-              >
-                Three
-              </a>
-            </li>
+            {filterMenuItems.map((item,i)=>(
+               <li key={i} className="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap">
+               <input
+                 type="checkbox"
+                 checked={item.checked}
+                 onChange={()=>handleCheckboxChange(item.name)}
+                 className="w-4 h-4 text-orange-600 ring-0 focus:ring-0 bg-gray-100 border-gray-300 rounded focus:ring-orange-500"
+               />{" "}
+               <label
+                  
+                 className="ml-2 text-sm font-medium text-gray-900 "
+               >
+                 {item.name}
+               </label>
+             </li>
+            ))}
+           
+          
           </ul>
         </div>
 

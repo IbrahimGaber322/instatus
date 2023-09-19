@@ -1,4 +1,4 @@
-import { EventType } from "@/constants/mockdata";
+import { EventType } from "@/constants/types";
 import { createEvent, getAllEvents } from "@/prisma/event";
 import { NextResponse } from "next/server";
 

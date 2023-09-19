@@ -1,5 +1,5 @@
 import { PrismaClient } from "@prisma/client";
-import { EventType } from "@/constants/mockdata"; // Adjust the path
+import { EventType } from "@/constants/types"; // Adjust the path
 
 const prisma = new PrismaClient();
 
