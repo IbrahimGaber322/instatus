@@ -8,13 +8,13 @@ const SearchBar = ({
   setSearch,
   filterMenuItems,
   setFilterMenuItems,
-  exportToCSV
+  exportToCSV,
 }: {
   search: string;
   setSearch: Function;
   filterMenuItems: { name: string; checked: boolean }[];
   setFilterMenuItems: Function;
-  exportToCSV:Function;
+  exportToCSV: Function;
 }) => {
   const [filterMenu, setFilterMenu] = useState<boolean>(false);
   const handleChange = (e: any) => {
@@ -47,7 +47,7 @@ const SearchBar = ({
         </div>
         <div className="relative ">
           <button
-          type="button"
+            type="button"
             onClick={() => setFilterMenu(!filterMenu)}
             className="p-2.5 text-sm font-medium h-10 w-fit bg-white hover:bg-slate-200 flex justify-center items-center text-gray-400"
           >
@@ -78,7 +78,11 @@ const SearchBar = ({
           </ul>
         </div>
 
-        <button onClick={()=>exportToCSV()} type="button" className="p-2.5 text-sm font-medium h-10 w-fit bg-white hover:bg-slate-200  flex justify-center items-center text-gray-400 rounded-r-lg">
+        <button
+          onClick={() => exportToCSV()}
+          type="button"
+          className="p-2.5 text-sm font-medium h-10 w-fit bg-white hover:bg-slate-200  flex justify-center items-center text-gray-400 rounded-r-lg"
+        >
           <ExportIcon />
           EXPORT
         </button>

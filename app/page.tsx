@@ -6,7 +6,7 @@ import Pagination from "@/components/Pagination";
 import Loading from "@/components/Loading";
 import useSWR from "swr";
 import Papa from "papaparse";
-import { FetchedEventType , EventType } from "@/constants/types";
+import { FetchedEventType, EventType } from "@/constants/types";
 import { useEffect, useState } from "react";
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());

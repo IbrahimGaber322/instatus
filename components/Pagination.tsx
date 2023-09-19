@@ -17,10 +17,9 @@ export default function Pagination({
   eventsNumber: number;
 }) {
   return (
-  
-  <div className="flex items-center justify-between border-t border-gray-200 bg-white px-4 py-3 sm:px-6">
+    <div className="flex items-center justify-between border-t border-gray-200 bg-white px-4 py-3 sm:px-6">
       <div className="flex flex-1 items-center justify-between flex-col sm:flex-row">
-        <div className="py-2"> 
+        <div className="py-2">
           <p className="text-sm text-gray-700">
             Showing{" "}
             <span className="font-medium">
@@ -64,6 +63,7 @@ export default function Pagination({
                 i + 1 <= page + 3 &&
                 i + 1 >= page - 3 && (
                   <button
+                    key={i}
                     onClick={() => setPage(i + 1)}
                     className={`${
                       page === i + 1
@@ -95,8 +95,5 @@ export default function Pagination({
         </div>
       </div>
     </div>
-
-  
-    
   );
 }

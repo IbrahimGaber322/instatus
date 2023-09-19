@@ -40,7 +40,7 @@ const Details = ({
   const date = moment(occurred_at).utc().format("MMM DD, h:m A");
 
   return (
-    <Fragment key={action?.id}>
+    <Fragment>
       {details ? (
         <tr>
           <td colSpan={3}>
@@ -79,13 +79,13 @@ const Details = ({
                           );
                         } else if (item?.name === "ACTION" && item?.checked) {
                           return (
-                            <TableDataDetails title="Email">
+                            <TableDataDetails title="Email" key={i}>
                               {action?.name}
                             </TableDataDetails>
                           );
                         } else if (item?.name === "DATE" && item?.checked) {
                           return (
-                            <TableDataDetails title="Readable">
+                            <TableDataDetails title="Readable" key={i}>
                               {date}
                             </TableDataDetails>
                           );
@@ -97,13 +97,13 @@ const Details = ({
                       {filterMenuItems.map((item, i) => {
                         if (item?.name === "ACTOR" && item?.checked) {
                           return (
-                            <TableDataDetails title="Email">
+                            <TableDataDetails title="Email" key={i}>
                               {target_name}
                             </TableDataDetails>
                           );
                         } else if (item?.name === "ACTION" && item?.checked) {
                           return (
-                            <TableDataDetails title="Object">
+                            <TableDataDetails title="Object" key={i}>
                               {action?.object}
                             </TableDataDetails>
                           );
@@ -115,13 +115,13 @@ const Details = ({
                       {filterMenuItems.map((item, i) => {
                         if (item?.name === "ACTOR" && item?.checked) {
                           return (
-                            <TableDataDetails title="ID">
+                            <TableDataDetails title="ID" key={i}>
                               {actor_id}
                             </TableDataDetails>
                           );
                         } else if (item?.name === "ACTION" && item?.checked) {
                           return (
-                            <TableDataDetails title="ID">
+                            <TableDataDetails title="ID" key={i}>
                               {action?.id}
                             </TableDataDetails>
                           );
@@ -152,13 +152,13 @@ const Details = ({
                       {filterMenuItems.map((item, i) => {
                         if (item?.name === "METADATA" && item?.checked) {
                           return (
-                            <TableDataDetails title="Redirect">
+                            <TableDataDetails title="Redirect" key={i}>
                               {metadata?.redirect}
                             </TableDataDetails>
                           );
                         } else if (item?.name === "TARGET" && item?.checked) {
                           return (
-                            <TableDataDetails title="Name">
+                            <TableDataDetails title="Name" key={i}>
                               {target_name}
                             </TableDataDetails>
                           );
@@ -170,13 +170,13 @@ const Details = ({
                       {filterMenuItems.map((item, i) => {
                         if (item?.name === "METADATA" && item?.checked) {
                           return (
-                            <TableDataDetails title="Description">
+                            <TableDataDetails title="Description" key={i}>
                               {metadata?.description}
                             </TableDataDetails>
                           );
                         } else if (item?.name === "TARGET" && item?.checked) {
                           return (
-                            <TableDataDetails title="ID">
+                            <TableDataDetails title="ID" key={i}>
                               {target_id}
                             </TableDataDetails>
                           );
@@ -188,7 +188,7 @@ const Details = ({
                       {filterMenuItems.map((item, i) => {
                         if (item?.name === "METADATA" && item?.checked) {
                           return (
-                            <TableDataDetails title="ID">
+                            <TableDataDetails title="ID" key={i}>
                               {metadata?.x_request_id}
                             </TableDataDetails>
                           );

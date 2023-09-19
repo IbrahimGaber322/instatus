@@ -12,7 +12,7 @@ interface Event {
   target_id: string;
   target_name: string;
   location: string;
-  occurred_at: string; // You can use a Date object if you prefer
+  occurred_at: string;
   metadata: { redirect: string; description: string; x_request_id: string };
 }
 
@@ -50,9 +50,8 @@ interface Details {
   location: string;
   occurred_at: string; // You can use a Date object if you prefer
   metadata: { redirect: string; description: string; x_request_id: string };
-  filterMenuItems:{name:string, checked:boolean}[]
+  filterMenuItems: { name: string; checked: boolean }[];
 }
-
 
 export type EventType = Event;
 export type FetchedEventType = FetchedEvent;

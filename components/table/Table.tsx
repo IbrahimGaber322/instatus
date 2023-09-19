@@ -1,7 +1,13 @@
 import Image from "next/image";
 import Details from "./details/Details";
 import { FetchedEventType } from "@/constants/types";
-const Table = ({ events, filterMenuItems }: { events: FetchedEventType[]; filterMenuItems:{name:string, checked:boolean}[] }) => {
+const Table = ({
+  events,
+  filterMenuItems,
+}: {
+  events: FetchedEventType[];
+  filterMenuItems: { name: string; checked: boolean }[];
+}) => {
   const headings: string[] = ["ACTOR", "ACTION", "DATE"];
   console.log(events);
 
@@ -25,7 +31,7 @@ const Table = ({ events, filterMenuItems }: { events: FetchedEventType[]; filter
             <tbody>
               {events.map((data, i) => (
                 <Details
-                  key={data.id}
+                  key={i}
                   id={data.id}
                   object={data.object}
                   actor_id={data.actor_id}

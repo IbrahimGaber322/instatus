@@ -12,7 +12,9 @@ const TableDataDetails = ({
           <p>{title}</p>
         </div>
         <div className="w-2/3">
-          <p className="ml-6 mr-5 text-left  text-black font-normal">{children}</p>
+          <p className="ml-6 mr-5 text-left  text-black font-normal">
+            {children}
+          </p>
         </div>
       </div>
     </td>
